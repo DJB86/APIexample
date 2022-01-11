@@ -45,6 +45,10 @@ class APITest extends TestCase {
 			'Address'
         ]);
     }
+    public function testShouldntReturnStudent () {
+		$this->get("api/v1/student/toast", []);
+		$this->seeStatusCode(422);
+	}
     // POST student
     public function testShouldCreateStudent () {
 		$parameters = array(
