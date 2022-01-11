@@ -67,6 +67,19 @@ class APITest extends TestCase {
 			'newStudentID',
 		]);
 	}
+	public function testShouldntCreateStudent () {
+		$parameters = array(
+			'FirstName'		=> '',
+			'Surname'		=> 'Adams',
+			'DateOfBirth'	=> '1952-03-11',
+			'Sex'			=> 'M',
+			'Gender'		=> 'Depressed Robot',
+			'PhoneNumber'	=> 'Dial M for memes',
+			'Address'		=> 'Milliways, The End of Time and Matter, The Universe (The End Of)'
+		);
+		$this->post("api/v1/student", $parameters, []);
+		$this->seeStatusCode(422);
+	}
 	// PUT student
 	public function testShouldUpdateStudent () {
 		$parameters = array(
@@ -83,6 +96,19 @@ class APITest extends TestCase {
 		$this->seeJsonEquals([
 			'success' => 'success'
 		]);
+	}
+	public function testShouldntUpdateStudent () {
+		$parameters = array(
+			'FirstName'		=> '',
+			'Surname'		=> 'Adams',
+			'DateOfBirth'	=> '1952-03-11',
+			'Sex'			=> 'M',
+			'Gender'		=> 'Depressed Robot',
+			'PhoneNumber'	=> 'Dial M for memes',
+			'Address'		=> 'Milliways, The End of Time and Matter, The Universe (The End Of)'
+		);
+		$this->put("api/v1/student/1", $parameters, []);
+		$this->seeStatusCode(422);
 	}
 	// DELETE student
 	public function testShouldDeleteStudent () {
