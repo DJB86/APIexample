@@ -1,24 +1,26 @@
-# Lumen PHP Framework
+# A basic API example using the Lumen micro-framework
 
-[![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
-[![Total Downloads](https://img.shields.io/packagist/dt/laravel/framework)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Stable Version](https://img.shields.io/packagist/v/laravel/framework)](https://packagist.org/packages/laravel/lumen-framework)
-[![License](https://img.shields.io/packagist/l/laravel/framework)](https://packagist.org/packages/laravel/lumen-framework)
+## Running locally
+A local dev server can be started in the root folder with `php -S localhost:8000 -t public` with the API then available at `localhost:8000/api/v1/`.
+As per validation rules set in `StudentRecordController.php` (see below), the following rules are in effect for API calls:
+- All fields are required
+- FirstName and Surname are alpha characters only
+- DateOfBirth must be a valid date
+- Sex can be "M", "F" or "O" for male, female or other (for "do not wish to disclose" option) respectively
+- Gender can be any string to account for the myriad possibilities
+- Phone number regex is just basic 0 followed by 9 or 10 digits, this would be improved to validate __which__ numbers are only 10 digits total (eg: London dialling codes)
+- Address is simply a string, this would be improved to split the address parameters out and validate against a list of counties and regex for valid postcodes
 
-Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
+Incorrect input will return a JSON object highlighting which parameters are incorrect.
 
-## Official Documentation
+## Routes
+Routing for endpoints is located in `routes/web.php`
 
-Documentation for the framework can be found on the [Lumen website](https://lumen.laravel.com/docs).
+## Database functions
+Handling of incoming queries is located in `app/Http/Controllers/StudentRecordController.php`
 
-## Contributing
+## Tests
+Basic test functions are located in `tests/APITest.php`
 
-Thank you for considering contributing to Lumen! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Lumen, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Lumen framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Database setup
+DB schema is located in `database/migrations/2022_01_10_203139_create_student_table.php`
